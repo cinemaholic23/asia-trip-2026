@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Путешествие по Азии 2026</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #fafafa;
+      color: #111;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.4;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 20px;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin: 32px 20px 24px 20px;
+      letter-spacing: -0.6px;
+      line-height: 1.1;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      padding: 12px 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(250,250,250,0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .chip {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1;
+    }
+
+    .chip.active {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      padding: 20px;
+      margin-top: 8px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid #eee;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    
+
+    .card.hidden {
+      display: none;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      filter: saturate(1.08) contrast(1.05) brightness(0.98);
+      transform: scale(1.01);
+    }
+
+    .card-content {
+      padding: 16px 16px 16px 16px;
+    }
+
+    .card-date {
+      font-size: 12px;
+      font-weight: 500;
+      color: #777;
+      margin-bottom: 8px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 650;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.55;
+    }
+  
+    @media (max-width: 600px) {
+      .page {
+        padding-top: 16px;
+      }
+      h1 {
+        margin: 32px 16px 18px 16px;
+      }
+      .chips {
+        padding: 0 16px;
+        margin-bottom: 18px;
+      }
+    }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <h1>Путешествие по Азии 2026</h1>
+
+  <div class="chips">
+    <div class="chip active" data-filter="all">Все</div>
+    <div class="chip" data-filter="hongkong">Гонконг</div>
+    <div class="chip" data-filter="japan">Япония</div>
+    <div class="chip" data-filter="vietnam">Вьетнам</div>
+  </div>
+
+  <div class="container" id="cardsContainer"></div>
+</div>
+
+<script>
+  const cardsData = [
+    {
+      city: "The Arca",
+      date: "19 апреля - 22 апреля",
+      category: "hongkong",
+      image: "https://ak-d.tripcdn.com/images/0226012000a8yuogdC202_W_1280_853_R5.jpg?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F",
+      description: "43 Heung Yip Road, Wong Chuk Hang, Южный, Гонконг, Китай"
+    },
+    {
+      city: "Домик в Осаке",
+      date: "22 апреля – 24 апреля",
+      category: "japan",
+      image: "https://a0.muscache.com/im/pictures/hosting/Hosting-1592566570951047198/original/e684cbb6-e037-46d7-9753-bc7b8a87a466.jpeg?im_w=1200",
+      description: "3-chōme-11-32 Ōyodonaka, Osaka, Osaka 531-0076"
+    },
+    {
+      city: "Таунхаус в Киото",
+      date: "24 апреля – 25 апреля",
+      category: "japan",
+      image: "https://a0.muscache.com/im/pictures/hosting/Hosting-1632299912004072885/original/0bfa7c99-0e5f-43f0-9ee9-29896844f560.jpeg?im_w=1200",
+      description: "60-4 Fukudenjichō, Kyoto, Kyoto 600-8404"
+    },
+    {
+      city: "hotel androoms Kyoto Shichijo",
+      date: "25 апреля – 28 апреля",
+      category: "japan",
+      image: "https://ak-d.tripcdn.com/images/0221a12000ar4nd1k3E0E_R_600_400_R5.jpg",
+      description: "730 Ebisunocho, район Симогё, 600-8310 Киото, Префектура Киото, Япония"
+    },
+    {
+      city: "Ginza Capital Hotel Moegi",
+      date: "28 апреля – 2 мая",
+      category: "japan",
+      image: "https://ak-d.tripcdn.com/images/0226b12000arauuwu8D6F_R_600_400_R5.jpg",
+      description: "3 Chome-3-1 Tsukiji, Тюо, 104-0045 Токио, Япония"
+    },
+    {
+      city: "THE LIVELY OSAKA HONMACHI",
+      date: "2 мая – 3 мая",
+      category: "japan",
+      image: "https://ak-d.tripcdn.com/images/2002190000016c970701A_W_1280_853_R5.jpg?proc=watermark/image_trip1,l_ne,x_16,y_16,w_67,h_16;digimark/t_image,logo_tripbinary;ignoredefaultwm,1A8F",
+      description: "1 Chome-5-11 Minamihonmachi, Чуо, 541-0054 Осака, Префектура Осака, Япония"
+    }];
+
+  const container = document.getElementById('cardsContainer');
+
+  function renderCards(data) {
+    container.innerHTML = data.map(item => `
+      <div class="card" data-category="${item.category}">
+        <img loading="lazy" src="${item.image}">
+        <div class="card-content">
+          <div class="card-date">${item.date}</div>
+          <div class="card-title">${item.city}</div>
+          <div class="card-description">${item.description}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderCards(cardsData);
+
+  const chips = document.querySelectorAll('.chip');
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelector('.chip.active')?.classList.remove('active');
+      chip.classList.add('active');
+
+      const filter = chip.dataset.filter;
+
+      const filtered = filter === 'all'
+        ? cardsData
+        : cardsData.filter(c => c.category === filter);
+
+      renderCards(filtered);
+    });
+  });
+</script>
+
+</body>
+</html>
